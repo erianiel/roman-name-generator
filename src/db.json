@@ -1,0 +1,17 @@
+{
+  "male": {
+    "citizen": {
+      "praenomen": [],
+      "nomen": [],
+      "cognomen": []
+    },
+    "slave": []
+  },
+  "female": {
+    "citizen": {
+      "nomen": [],
+      "cognomen": []
+    },
+    "slave": []
+  }
+}
