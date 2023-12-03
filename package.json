@@ -1,14 +1,17 @@
 {
-  "name": "roman-name-gen",
+  "name": "roman-name-generator",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite-node -w src/main.js",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite-node build src/main.js",
+    "preview": "vite preview",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^0.34.6",
     "vite": "^5.0.0",
     "vite-node": "^0.34.6",
     "vitest": "^0.34.6"
