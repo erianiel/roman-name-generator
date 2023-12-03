@@ -1,5 +1,5 @@
-import { expect, test, vi } from "vitest";
-import { generateFullName, GENDER, STATUS } from "./main";
+import { afterEach, expect, test, vi } from "vitest";
+import { GENDER, STATUS, generateFullName, generatePerson } from "./main";
 
 vi.mock("./db", () => ({
   default: {
@@ -14,6 +14,10 @@ vi.mock("./db", () => ({
     female: { citizen: { cognomen: ["Agrippa"] }, slave: ["Prepontis"] },
   },
 }));
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 test("name generator", () => {
   expect(generateFullName(GENDER.MALE, STATUS.CITIZEN)).toBe(
@@ -32,4 +36,13 @@ test("name generator", () => {
   expect(generateFullName(GENDER.FEMALE, STATUS.SLAVE)).toBe("Prepontis");
   expect(() => generateFullName("whatever", STATUS.SLAVE)).toThrow();
   expect(() => generateFullName(GENDER.MALE, "whatever")).toThrow();
+});
+
+test("person generator", () => {
+  vi.spyOn(global.Math, "random").mockReturnValue(0.5);
+  expect(generatePerson()).toStrictEqual({
+    fullName: "Milonia Prepontis",
+    gender: GENDER.FEMALE,
+    status: STATUS.LIBERTUS,
+  });
 });

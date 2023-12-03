@@ -39,6 +39,8 @@ It was an unofficial nickname given to distinguish people more precisely. It cou
 
 ## How to use
 
+### Generate random fullname
+
 | attribute | values (required)              |
 | --------- | ------------------------------ |
 | gender    | `male`, `female`               |
@@ -50,5 +52,15 @@ import { generateFullName, GENDER, STATUS } from "roman-name-generator";
 
 generateFullName(GENDER.FEMALE, STATUS.CITIZEN); // Popillia Rufa
 generateFullName(GENDER.MALE, STATUS.LIBERTUS); // Paullus Teius Orpheus
+
+```
+
+### Generate random person
+
+```JS
+
+import { generatePerson } from "roman-name-generator";
+
+generatePerson(); // { fullName: Popillia Rufa, gender: "female", status: "citizen" }
 
 ```

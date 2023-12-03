@@ -68,3 +68,15 @@ export const generateFullName = function (gender, status) {
 
   return fullName;
 };
+
+export const generatePerson = () => {
+  const gender = getRandomItem(Object.values(GENDER));
+  const status = getRandomItem(Object.values(STATUS));
+  const fullName = generateFullName(gender, status);
+
+  return {
+    fullName,
+    gender,
+    status,
+  };
+};
