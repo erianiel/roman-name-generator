@@ -1,4 +1,4 @@
-# roman-name-generator
+# 🏛 roman-name-generator
 
 A realistic ancient Roman name generator.
 
