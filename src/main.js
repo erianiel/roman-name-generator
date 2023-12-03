@@ -68,6 +68,3 @@ export const generateFullName = function (gender, status) {
 
   return fullName;
 };
-
-console.log(generateFullName("female", "citizen"));
-console.log(generateFullName("male", "libertus"));
