@@ -5,13 +5,12 @@
     "name": "erianiel",
     "url": "https://github.com/erianiel"
   },
-  "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite-node -w src/main.js",
     "build": "vite build",
-    "test": "vitest",
+    "test": "vitest run",
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
