@@ -1,12 +1,16 @@
 {
   "name": "roman-name-generator",
+  "description": "A realistic ancient Roman name generator.",
+  "author": {
+    "name": "erianiel",
+    "url": "https://github.com/erianiel"
+  },
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite-node -w src/main.js",
-    "build": "vite-node build src/main.js",
-    "preview": "vite preview",
+    "build": "vite build",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
