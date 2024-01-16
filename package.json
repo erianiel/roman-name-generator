@@ -5,8 +5,9 @@
     "name": "erianiel",
     "url": "https://github.com/erianiel"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
+  "main": "src/main.js",
   "scripts": {
     "dev": "vite-node -w src/main.js",
     "build": "vite build",
