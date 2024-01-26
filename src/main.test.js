@@ -1,5 +1,5 @@
 import { afterEach, expect, test, vi } from "vitest";
-import { GENDER, STATUS, generateFullName, generatePerson } from "./main";
+import { ANY, GENDER, STATUS, generateFullName, generatePerson } from "./main";
 
 vi.mock("./db", () => ({
   default: {
@@ -34,6 +34,12 @@ test("name generator", () => {
   );
   expect(generateFullName(GENDER.MALE, STATUS.SLAVE)).toBe("Aegypta");
   expect(generateFullName(GENDER.FEMALE, STATUS.SLAVE)).toBe("Prepontis");
+  expect(generateFullName(ANY, STATUS.SLAVE)).toBeTruthy(
+    Boolean("Aegypta" || "Prepontis")
+  );
+  expect(generateFullName(GENDER.FEMALE, ANY)).toBeTruthy(
+    Boolean("Prepontis" || "Milonia Agrippa" || "Milonia Prepontis")
+  );
   expect(() => generateFullName("whatever", STATUS.SLAVE)).toThrow();
   expect(() => generateFullName(GENDER.MALE, "whatever")).toThrow();
 });

@@ -41,17 +41,19 @@ It was an unofficial nickname given to distinguish people more precisely. It cou
 
 ### Generate random fullname
 
-| attribute | values (required)              |
-| --------- | ------------------------------ |
-| gender    | `male`, `female`               |
-| status    | `citizen`, `libertus`, `slave` |
+| attribute | values (required)                     |
+| --------- | ------------------------------------- |
+| gender    | `male`, `female`, `any`               |
+| status    | `citizen`, `libertus`, `slave`, `any` |
 
 ```JS
 
-import { generateFullName, GENDER, STATUS } from "roman-name-generator";
+import { generateFullName, ANY, GENDER, STATUS } from "roman-name-generator";
 
 generateFullName(GENDER.FEMALE, STATUS.CITIZEN); // Popillia Rufa
 generateFullName(GENDER.MALE, STATUS.LIBERTUS); // Paullus Teius Orpheus
+generateFullName(ANY, STATUS.SLAVE); // Bissula
+generateFullName(GENDER.MALE, ANY); // Proculus Scantius Purpureo
 
 ```
 

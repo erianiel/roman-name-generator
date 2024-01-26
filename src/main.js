@@ -1,5 +1,7 @@
 import db from "./db";
 
+export const ANY = "any";
+
 export const GENDER = {
   MALE: "male",
   FEMALE: "female",
@@ -23,16 +25,32 @@ const getRandomItem = (items) => {
  * @returns {String | Error}
  */
 export const generateFullName = function (gender, status) {
-  if (gender !== GENDER.MALE && gender !== GENDER.FEMALE) {
+  let selectedGender = gender;
+  let selectedStatus = status;
+
+  if (
+    selectedGender !== GENDER.MALE &&
+    selectedGender !== GENDER.FEMALE &&
+    selectedGender !== ANY
+  ) {
     throw new Error("You must pass a valid gender");
   }
 
   if (
-    status !== STATUS.CITIZEN &&
-    status !== STATUS.LIBERTUS &&
-    status !== STATUS.SLAVE
+    selectedStatus !== STATUS.CITIZEN &&
+    selectedStatus !== STATUS.LIBERTUS &&
+    selectedStatus !== STATUS.SLAVE &&
+    selectedStatus !== ANY
   ) {
     throw new Error("You must pass a valid status");
+  }
+
+  if (selectedStatus === ANY) {
+    selectedStatus = getRandomItem(Object.values(STATUS));
+  }
+
+  if (selectedGender === ANY) {
+    selectedGender = getRandomItem(Object.values(GENDER));
   }
 
   const { praenomen, nomen, cognomen } = db.male.citizen;
@@ -44,26 +62,28 @@ export const generateFullName = function (gender, status) {
   const femaleSecondName = `${maleSecondName.slice(0, -2)}a`;
   const femaleThirdName = getRandomItem(db.female.citizen.cognomen);
 
-  const slaveName = (gender) => getRandomItem(db[gender].slave);
+  const slaveName = (selectedGender) => getRandomItem(db[selectedGender].slave);
 
   let fullName = "";
 
-  if (gender === GENDER.MALE) {
-    if (status === STATUS.CITIZEN)
+  if (selectedGender === GENDER.MALE) {
+    if (selectedStatus === STATUS.CITIZEN)
       fullName = `${maleFirstName} ${maleSecondName} ${thirdName}`;
-    if (status === STATUS.LIBERTUS)
-      fullName = `${maleFirstName} ${maleSecondName} ${slaveName(gender)}`;
+    if (selectedStatus === STATUS.LIBERTUS)
+      fullName = `${maleFirstName} ${maleSecondName} ${slaveName(
+        selectedGender
+      )}`;
   }
 
-  if (gender === GENDER.FEMALE) {
-    if (status === STATUS.CITIZEN)
+  if (selectedGender === GENDER.FEMALE) {
+    if (selectedStatus === STATUS.CITIZEN)
       fullName = `${femaleSecondName} ${femaleThirdName}`;
-    if (status === STATUS.LIBERTUS)
-      fullName = `${femaleSecondName} ${slaveName(gender)}`;
+    if (selectedStatus === STATUS.LIBERTUS)
+      fullName = `${femaleSecondName} ${slaveName(selectedGender)}`;
   }
 
-  if (status === STATUS.SLAVE) {
-    fullName = slaveName(gender);
+  if (selectedStatus === STATUS.SLAVE) {
+    fullName = slaveName(selectedGender);
   }
 
   return fullName;
