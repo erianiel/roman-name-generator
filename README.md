@@ -39,7 +39,7 @@ It was an unofficial nickname given to distinguish people more precisely. It cou
 
 ## How to use
 
-### Generate random fullname
+### Generate random full name
 
 | attribute | values (required)                     |
 | --------- | ------------------------------------- |
@@ -50,19 +50,19 @@ It was an unofficial nickname given to distinguish people more precisely. It cou
 
 import { generateFullName, ANY, GENDER, STATUS } from "roman-name-generator";
 
-generateFullName(GENDER.FEMALE, STATUS.CITIZEN); // Popillia Rufa
-generateFullName(GENDER.MALE, STATUS.LIBERTUS); // Paullus Teius Orpheus
-generateFullName(ANY, STATUS.SLAVE); // Bissula
-generateFullName(GENDER.MALE, ANY); // Proculus Scantius Purpureo
+generateFullName(GENDER.FEMALE, STATUS.CITIZEN); // { fullName: 'Popillia Rufa', gender: 'female', status: 'citizen' }
+generateFullName(GENDER.MALE, STATUS.LIBERTUS); // { fullName: 'Paullus Teius Orpheus', gender: 'male', status: 'libertus' }
+generateFullName(ANY, STATUS.SLAVE); // { fullName: 'Bissula', gender: 'female', status: 'slave' }
+generateFullName(GENDER.MALE, ANY); // { fullName: 'Proculus Scantius Purpureo', gender: 'male', status: 'citizen' }
 
 ```
 
-### Generate random person
+### Generate random full name
 
 ```JS
 
-import { generatePerson } from "roman-name-generator";
+import { generateRandomFullName } from "roman-name-generator";
 
-generatePerson(); // { fullName: Popillia Rufa, gender: "female", status: "citizen" }
+generateRandomFullName(); // { fullName: Popillia Rufa, gender: "female", status: "citizen" }
 
 ```
