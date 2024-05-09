@@ -20,9 +20,9 @@ const getRandomItem = (items) => {
 /**
  * Generate a realistic ancient Roman fullname
  *
- * @param {String} gender Accepted values: `male` or `female`
- * @param {String} status Accepted values: `citizien`, `libertus` or `slave`
- * @returns {String | Error}
+ * @param {String} gender Accepted values: `male`, `female`, `any`
+ * @param {String} status Accepted values: `citizien`, `libertus`, `slave` or `any`
+ * @returns { Object { `fullname`: String, `gender`: String, `status`: String } | Error}
  */
 export const generateFullName = function (gender, status) {
   let selectedGender = gender;
@@ -86,17 +86,21 @@ export const generateFullName = function (gender, status) {
     fullName = slaveName(selectedGender);
   }
 
-  return fullName;
-};
-
-export const generatePerson = () => {
-  const gender = getRandomItem(Object.values(GENDER));
-  const status = getRandomItem(Object.values(STATUS));
-  const fullName = generateFullName(gender, status);
-
   return {
     fullName,
     gender,
     status,
   };
+};
+
+/**
+ * Generate a realistic random ancient Roman fullname
+ *
+ * @returns {Object}
+ */
+export const generateRandomFullName = () => {
+  const gender = getRandomItem(Object.values(GENDER));
+  const status = getRandomItem(Object.values(STATUS));
+
+  return generateFullName(gender, status);
 };

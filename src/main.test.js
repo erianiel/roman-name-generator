@@ -1,5 +1,11 @@
 import { afterEach, expect, test, vi } from "vitest";
-import { ANY, GENDER, STATUS, generateFullName, generatePerson } from "./main";
+import {
+  ANY,
+  GENDER,
+  STATUS,
+  generateFullName,
+  generateRandomFullName,
+} from "./main";
 
 vi.mock("./db", () => ({
   default: {
@@ -19,26 +25,64 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
+const DATA = {
+  maleCitizen: {
+    fullName: "Gaius Milonius Nasica",
+    gender: GENDER.MALE,
+    status: STATUS.CITIZEN,
+  },
+  femaleCitizen: {
+    fullName: "Milonia Agrippa",
+    gender: GENDER.FEMALE,
+    status: STATUS.CITIZEN,
+  },
+  maleLibertus: {
+    fullName: "Gaius Milonius Aegypta",
+    gender: GENDER.MALE,
+    status: STATUS.LIBERTUS,
+  },
+  femaleLibertus: {
+    fullName: "Milonia Prepontis",
+    gender: GENDER.FEMALE,
+    status: STATUS.LIBERTUS,
+  },
+  maleSlave: {
+    fullName: "Aegypta",
+    gender: GENDER.MALE,
+    status: STATUS.SLAVE,
+  },
+  femaleSlave: {
+    fullName: "Prepontis",
+    gender: GENDER.FEMALE,
+    status: STATUS.SLAVE,
+  },
+};
+
 test("name generator", () => {
-  expect(generateFullName(GENDER.MALE, STATUS.CITIZEN)).toBe(
-    "Gaius Milonius Nasica"
+  expect(generateFullName(GENDER.MALE, STATUS.CITIZEN)).toStrictEqual(
+    DATA.maleCitizen
   );
-  expect(generateFullName(GENDER.FEMALE, STATUS.CITIZEN)).toBe(
-    "Milonia Agrippa"
+  expect(generateFullName(GENDER.FEMALE, STATUS.CITIZEN)).toStrictEqual(
+    DATA.femaleCitizen
   );
-  expect(generateFullName(GENDER.MALE, STATUS.LIBERTUS)).toBe(
-    "Gaius Milonius Aegypta"
+  expect(generateFullName(GENDER.MALE, STATUS.LIBERTUS)).toStrictEqual(
+    DATA.maleLibertus
   );
-  expect(generateFullName(GENDER.FEMALE, STATUS.LIBERTUS)).toBe(
-    "Milonia Prepontis"
+  expect(generateFullName(GENDER.FEMALE, STATUS.LIBERTUS)).toStrictEqual(
+    DATA.femaleLibertus
   );
-  expect(generateFullName(GENDER.MALE, STATUS.SLAVE)).toBe("Aegypta");
-  expect(generateFullName(GENDER.FEMALE, STATUS.SLAVE)).toBe("Prepontis");
+  expect(generateFullName(GENDER.MALE, STATUS.SLAVE)).toStrictEqual(
+    DATA.maleSlave
+  );
+  expect(generateFullName(GENDER.FEMALE, STATUS.SLAVE)).toStrictEqual(
+    DATA.femaleSlave
+  );
+
   expect(generateFullName(ANY, STATUS.SLAVE)).toBeTruthy(
-    Boolean("Aegypta" || "Prepontis")
+    Boolean(DATA.maleSlave || DATA.femaleSlave)
   );
   expect(generateFullName(GENDER.FEMALE, ANY)).toBeTruthy(
-    Boolean("Prepontis" || "Milonia Agrippa" || "Milonia Prepontis")
+    Boolean(DATA.femaleCitizen || DATA.femaleLibertus || DATA.femaleSlave)
   );
   expect(() => generateFullName("whatever", STATUS.SLAVE)).toThrow();
   expect(() => generateFullName(GENDER.MALE, "whatever")).toThrow();
@@ -46,9 +90,5 @@ test("name generator", () => {
 
 test("person generator", () => {
   vi.spyOn(global.Math, "random").mockReturnValue(0.5);
-  expect(generatePerson()).toStrictEqual({
-    fullName: "Milonia Prepontis",
-    gender: GENDER.FEMALE,
-    status: STATUS.LIBERTUS,
-  });
+  expect(generateRandomFullName()).toStrictEqual(DATA.femaleLibertus);
 });
