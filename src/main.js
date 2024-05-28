@@ -88,8 +88,8 @@ export const generateFullName = function (gender, status) {
 
   return {
     fullName,
-    gender,
-    status,
+    gender: selectedGender,
+    status: selectedStatus,
   };
 };
 

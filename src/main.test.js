@@ -78,12 +78,21 @@ test("name generator", () => {
     DATA.femaleSlave
   );
 
-  expect(generateFullName(ANY, STATUS.SLAVE)).toBeTruthy(
-    Boolean(DATA.maleSlave || DATA.femaleSlave)
+  expect(generateFullName(ANY, STATUS.SLAVE).gender).not.toStrictEqual(
+    GENDER.ANY
   );
-  expect(generateFullName(GENDER.FEMALE, ANY)).toBeTruthy(
-    Boolean(DATA.femaleCitizen || DATA.femaleLibertus || DATA.femaleSlave)
+  expect(generateFullName(ANY, STATUS.SLAVE).gender).oneOf([
+    DATA.maleSlave.gender,
+    DATA.femaleSlave.gender,
+  ]);
+  expect(generateFullName(GENDER.FEMALE, ANY).status).not.toStrictEqual(
+    STATUS.ANY
   );
+  expect(generateFullName(GENDER.FEMALE, ANY).status).oneOf([
+    DATA.femaleCitizen.status,
+    DATA.femaleLibertus.status,
+    DATA.femaleSlave.status,
+  ]);
   expect(() => generateFullName("whatever", STATUS.SLAVE)).toThrow();
   expect(() => generateFullName(GENDER.MALE, "whatever")).toThrow();
 });
